@@ -1,0 +1,6 @@
+*.zip
+.DS_Store
+Solver/*.pyc
+Solver/__pycache__/
+Solver/.ipynb_checkpoints/
+output/*
