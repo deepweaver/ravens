@@ -49,7 +49,7 @@ class GestaltAnalyzer(CellAnalyzer):
         return self.featureMatchingFunc(upperHalf, lowerHalf)
         # return ORBdetectorAndBFmatcher(upperHalf, lowerHalf)
 
-    def continuityScore(self,): 
+    def continuityScore(self,):  # failed 
         edges = cv2.Canny(self.mat, 100, 200) 
         return (edges==255).sum() 
 
@@ -66,24 +66,29 @@ if __name__ == "__main__":
         data_a_b = pickle.load(file) 
     
     ans = []
+    data_saver = []
     for k in tqdm.tqdm(range(24)): 
         tmp = [] 
         for i in range(6): 
             
             analyzer = GestaltAnalyzer(data_a_b[k][i,:,:]) 
-            
-            tmp.append(sum(analyzer.getAllScores())) 
+            tmp.append(analyzer.getAllScores()) # get [4 scores] of each pic
+            # tmp.append(sum(analyzer.getAllScores())) 
             # tmp.append(analyzer.continuityScore()) 
-        print(tmp) 
-        ans.append(np.array(tmp).argmin()+1)
-    print(correctAnwsers)
-    print(ans) 
 
-    correct_cnt = 0
-    for i in range(24): 
-        if ans[i] == correctAnwsers[i]: 
-            correct_cnt += 1 
-    print("current count = {}".format(correct_cnt)) 
+        # ans.append(np.array(tmp).argmin()+1) 
+        ans.append(tmp)
+    # data_saver.append(ans) 
+    with open("../data/first24Scores.pkl", "wb") as file: 
+        pickle.dump(ans,file)
+    # print(correctAnwsers)
+    # print(ans) 
+
+    # correct_cnt = 0
+    # for i in range(24): 
+    #     if ans[i] == correctAnwsers[i]: 
+    #         correct_cnt += 1 
+    # print("current count = {}".format(correct_cnt)) 
 
 
 
