@@ -12,7 +12,6 @@ class CellAnalyzer(object):
         self.numberOfWhitePixels = np.sum(self.mat/255) 
         self.numberOfBlackPixels = np.prod(self.mat.shape) - self.numberOfWhitePixels
         self.blackWhiteRatio = 1.0 * self.numberOfBlackPixels / self.numberOfWhitePixels if self.numberOfWhitePixels != 0 else 0
-        # 
         self.perimeter = 0 
         self.centroid = 0 
         self.contour = self.getContour()
@@ -22,10 +21,7 @@ class CellAnalyzer(object):
         self.alignedMat = self.getAlignedMat() 
         # self.contour is a numpy array of shape [numOfPoints, 2, 1]
 
-        # print(len(self.contours))
-        # print(self.contours[0].shape)
-    # def getBoundingBox(self):
-    #     return 0, 0
+
     def getContour(self): 
         contours = cv2.findContours(255-self.mat, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
         # contours = cv2.findContours(255-self.mat, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)[0]
