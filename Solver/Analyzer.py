@@ -12,9 +12,10 @@ class CellAnalyzer(object):
         self.numberOfWhitePixels = np.sum(self.mat/255) 
         self.numberOfBlackPixels = np.prod(self.mat.shape) - self.numberOfWhitePixels
         self.blackWhiteRatio = 1.0 * self.numberOfBlackPixels / self.numberOfWhitePixels if self.numberOfWhitePixels != 0 else 0
-        self.perimeter = 0 
+        
         self.centroid = 0 
         self.contour = self.getContour()
+        self.perimeter = cv2.arcLength(self.contour,True)
         self.ymin, self.ymax, self.xmin, self.xmax = self.getBoundingBox()
         self.width, self.height = (self.xmax - self.xmin), (self.ymax - self.ymin) 
         self.alignedContour = self.getAlignedContour()
@@ -160,30 +161,8 @@ def findIdenticalPattern4cells(listOfMatAnalyzers):
 
 def main():
     import pickle
-    
-
     with open("data.pkl", 'rb') as f: 
         dataset = pickle.load(f) 
-    # for i in range(10):
-    #     data = dataset["4cells"][i]
-    #     print("This is the {}".format(i)) 
-    #     dataAnalyzers = instantializeListOfAnalyzers(data)  
-    #     visualizeContours(dataAnalyzers, save=True)
-    #     # print(len(dataAnalyzers[5].contours))
-    #     # print(type(dataAnalyzers[5].contours[0]))
-    #     # print(dataAnalyzers[5].contour)
-
-    #     # print(dataAnalyzers[0].contour) 
-    #     # print(dataAnalyzers[0].alignedContour)
-
-    #     for analyzer in dataAnalyzers: 
-    #         # measureContourSimilarity(dataAnalyzers[0], analyzer)
-    #         # measureL2Similarity(dataAnalyzers[0], analyzer)
-    #         measureHistogramSimilarity(dataAnalyzers[0], analyzer)
-    #         # print(measureHistogramSimilarity(dataAnalyzers[0], analyzer))
-    #         # measureL2Similarity(dataAnalyzers[0], analyzer)
-    #         # print(analyzer.width, analyzer.height)
-    #     print("----------------------------")
 
     correctAnwsers = [4,5,1,2,6,3,6,2,1,3,4,5,2,6,1,2,1,3,5,6,4,3,4,5] 
     answers = [] 

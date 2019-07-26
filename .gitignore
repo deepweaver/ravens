@@ -5,3 +5,4 @@ Solver/__pycache__/
 Solver/.ipynb_checkpoints/
 output/*
 data/data_a_b_570x900_py3.pkl
+*tmp.* 
